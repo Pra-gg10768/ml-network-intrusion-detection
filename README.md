@@ -1,80 +1,86 @@
 # ML-Based Network Intrusion Detection System (IDS)
 
-This project implements an end-to-end **Machine Learning–based Network Intrusion Detection System (IDS)** using real-world network traffic data. The goal is to automatically identify malicious activities in network traffic by learning patterns from labeled data, thereby enhancing network security and incident response capabilities.
+This project implements an **end-to-end Machine Learning–based Network Intrusion Detection System (IDS)** using real-world network traffic data (CICIDS2017). The system detects malicious network activities by learning patterns from labeled traffic and provides interpretable insights for cybersecurity monitoring.
 
-The system follows a structured machine learning pipeline, starting from raw data ingestion and preprocessing to model training, evaluation, and result documentation.
+The pipeline covers **data preprocessing, exploratory data analysis, model training, validation, and feature importance analysis**, ensuring robust and reproducible results.
 
 ---
 
 ## 📌 Motivation
 
-With the increasing complexity and volume of cyberattacks, traditional rule-based intrusion detection systems struggle to scale and adapt. Machine learning–based IDS solutions can learn from historical traffic patterns and generalize to detect unseen or evolving attack behaviors.
+Traditional rule-based IDS solutions struggle to detect evolving and complex cyberattacks. Machine Learning (ML) can learn from historical patterns to detect both known and novel attacks.
 
-This project is designed to:
-- Gain hands-on experience with **real-world cybersecurity datasets**
-- Apply **machine learning techniques** to intrusion detection
-- Build a **reproducible and research-oriented ML pipeline**
-- Prepare a **Masters-level project** suitable for academic and research applications
+This project aims to:
+- Apply **ML techniques** to real-world cybersecurity datasets
+- Build **robust models with validation to avoid overfitting**
+- Generate **explainable insights** for network security
+- Prepare a **research-oriented project** for academic purposes
 
 ---
 
 ## 📂 Dataset
 
-The project uses the **CICIDS2017 dataset**, a widely adopted benchmark dataset for intrusion detection research. It contains realistic network traffic captured in a controlled environment, including both benign and malicious activities such as DDoS attacks.
-
-Key characteristics:
-- Large-scale dataset (750K+ network flows)
-- High-dimensional feature space (network flow statistics)
-- Labeled traffic (Benign vs Attack)
+- **CICIDS2017 dataset**: realistic network traffic with both benign and attack flows
+- Features: 77 network flow attributes (duration, packet/byte statistics, etc.)
+- Size: ~755,000 network flows
+- Labels: Benign vs Attack (multi-class, combined into binary for IDS)
 
 ---
 
-## ⚙️ Project Pipeline
+## ⚙️ Project Pipeline (Day-wise Summary)
 
-The project follows a modular and reproducible workflow:
+### **Day 1–2: Data Loading & Cleaning**
+- Loaded multiple raw CSV files and combined them
+- Standardized column names and removed redundant or sensitive features (`IP`, `Port`, `Timestamp`)
+- Handled missing and infinite values
+- Saved processed dataset: `data/processed/X_processed.csv` and `y_labels.csv`
 
-1. **Data Ingestion**
-   - Load and combine raw network traffic files
-   - Standardize column names and formats
+### **Day 3: Exploratory Data Analysis (EDA)**
+- Analyzed class distribution: benign vs attack traffic
+- Visualized key feature distributions
+- Checked correlations and initial patterns
 
-2. **Data Preprocessing**
-   - Handle missing and infinite values
-   - Remove non-informative and leakage-prone features (IPs, ports, timestamps)
-   - Encode class labels
-   - Normalize numerical features
-   - Persist processed datasets for reproducibility
+### **Day 4: Preprocessing**
+- Encoded categorical labels using `LabelEncoder`
+- Scaled numerical features using `StandardScaler`
+- Saved processed datasets for reproducibility
 
-3. **Exploratory Data Analysis (EDA)**
-   - Class distribution analysis
-   - Feature-level inspection
-   - Initial understanding of attack vs normal traffic patterns
+### **Day 5: Model Training with Validation**
+- **Train / Validation / Test Split** to prevent overfitting
+  - Train: 64%
+  - Validation: 16%
+  - Test: 20%
+- Trained two models:
+  1. Logistic Regression (baseline)
+  2. Random Forest (strong ensemble)
+- Validation and test evaluation metrics saved in `reports/day5_results.json`
+- **Results:**
 
-4. **Model Training**
-   - Logistic Regression as a baseline IDS model
-   - Random Forest as a stronger non-linear classifier
+| Model               | Validation Accuracy | Test Accuracy |
+|--------------------|------------------|---------------|
+| Logistic Regression | 98.56%           | 98.61%       |
+| Random Forest       | 99.99%           | 99.99%       |
 
-5. **Model Evaluation**
-   - Accuracy, precision, recall, and F1-score
-   - Confusion matrix analysis
-   - Emphasis on attack recall and false positive rates
+- Random Forest confusion matrix (Test Set):
 
-6. **Result Documentation**
-   - Persist evaluation metrics to files
-   - Summarize results for reproducibility and reporting
+[[125428 6]
+[ 7 25598]]
 
----
 
-## 📊 Current Results (Baseline)
+### **Day 6: Feature Importance & Explainability**
+- Computed **Random Forest feature importances**
+- Visualized top 20 features and cumulative importance
+- Validated feature importances using **validation set**
+- Saved results:
+  - `reports/feature_importances.csv`
+  - `reports/top20_feature_importances.png`
+  - `reports/cumulative_feature_importance.png`
+  - `reports/feature_importance_validation.json`
 
-| Model               | Accuracy |
-|--------------------|----------|
-| Logistic Regression | ~98.6%   |
-| Random Forest       | ~99.99%  |
-
-- Logistic Regression achieves high recall for attack detection, making it suitable as a baseline IDS.
-- Random Forest demonstrates near-perfect classification with minimal false positives and false negatives.
-
-Detailed metrics and confusion matrices are stored in the `reports/` directory.
+**Key Insights:**
+- Top predictive features include **flow duration, packet counts, byte statistics**  
+- Model generalizes well: validation accuracy ≈ test accuracy  
+- Provides interpretable insights for network security monitoring
 
 ---
 
@@ -88,42 +94,35 @@ ml-network-intrusion-detection/
 │
 ├── src/
 │ ├── preprocessing.py
-│ └── train_models.py
+│ ├── train_models.py
+│ └── feature_importance.py
 │
 ├── models/ # Trained ML models
-├── reports/ # Evaluation metrics and results
+├── reports/ # Metrics, plots, feature importance
 └── README.md
 
-yaml
-Copy code
 
 ---
 
-## 🚧 Project Status
+## 📊 Visualizations
 
-**Week 1 – Completed**
-- Dataset exploration and preprocessing
-- Baseline and ensemble model training
-- Evaluation and result documentation
+- **Top 20 Feature Importances**
 
-**Upcoming**
-- Feature importance and explainability
-- ROC-AUC and threshold analysis
-- Advanced models and anomaly-based detection
-- Research-oriented performance analysis
+![Top 20 Features](reports/top20_feature_importances.png)
+
+- **Cumulative Feature Importance**
+
+![Cumulative Importance](reports/cumulative_feature_importance.png)
 
 ---
 
 ## 🎯 Learning Outcomes
 
-Through this project, I aim to strengthen my understanding of:
-- Applied machine learning for cybersecurity
-- Large-scale data preprocessing and evaluation
-- Intrusion detection system design
-- Reproducible ML pipelines for research
+- Hands-on experience with **large-scale network traffic data**
+- Implemented **robust ML pipeline** with train/validation/test split
+- Trained and evaluated **baseline and ensemble models**
+- Extracted **explainable insights** using feature importance
+- Developed **reproducible research-oriented code**
 
 ---
 
-## 📌 Notes
-
-This project is part of my preparation for **Masters-level studies** in Machine Learning and Cybersecurity, with a focus on practical, research-driven system development.
