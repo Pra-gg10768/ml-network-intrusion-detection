@@ -27,25 +27,25 @@ This project aims to:
 
 ---
 
-## ⚙️ Project Pipeline (Day-wise Summary)
+## ⚙️ Project Pipeline 
 
-### **Day 1–2: Data Loading & Cleaning**
+### **Data Loading & Cleaning**
 - Loaded multiple raw CSV files and combined them
 - Standardized column names and removed redundant or sensitive features (`IP`, `Port`, `Timestamp`)
 - Handled missing and infinite values
 - Saved processed dataset: `data/processed/X_processed.csv` and `y_labels.csv`
 
-### **Day 3: Exploratory Data Analysis (EDA)**
+### **Exploratory Data Analysis (EDA)**
 - Analyzed class distribution: benign vs attack traffic
 - Visualized key feature distributions
 - Checked correlations and initial patterns
 
-### **Day 4: Preprocessing**
+### **Preprocessing**
 - Encoded categorical labels using `LabelEncoder`
 - Scaled numerical features using `StandardScaler`
 - Saved processed datasets for reproducibility
 
-### **Day 5: Model Training with Validation**
+### **Model Training with Validation**
 - **Train / Validation / Test Split** to prevent overfitting
   - Train: 64%
   - Validation: 16%
@@ -67,7 +67,7 @@ This project aims to:
 [ 7 25598]]
 
 
-### **Day 6: Feature Importance & Explainability**
+### **Feature Importance & Explainability**
 - Computed **Random Forest feature importances**
 - Visualized top 20 features and cumulative importance
 - Validated feature importances using **validation set**
