@@ -1,0 +1,1 @@
+The preprocessing pipeline handles real-world data inconsistencies such as missing values, infinite values, and redundant identifier fields. Label encoding and feature scaling are applied to prepare the dataset for machine learning models, ensuring consistent and reproducible training.
